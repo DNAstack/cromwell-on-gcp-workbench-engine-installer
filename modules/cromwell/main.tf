@@ -298,14 +298,6 @@ module "cromwell_container" {
   restart_policy = "Always"
 }
 
-data "template_file" "startup_script" {
-  template = file("${path.module}/startup.sh.tpl")
-  vars     = {
-    config_path    = local.cromwell_vm.config_path
-    config_content = local.cromwell_vm.config_content
-  }
-}
-
 resource "google_compute_instance" "cromwell_vm" {
   project                   = var.deployment_project_id
   machine_type              = "e2-medium"
@@ -336,6 +328,8 @@ resource "google_compute_instance" "cromwell_vm" {
     email  = google_service_account.cromwell.email
     scopes = ["cloud-platform"]
   }
-
-  metadata_startup_script = data.template_file.startup_script.rendered
+  metadata_startup_script = templatefile("${path.module}/startup.sh.tpl", {
+    config_path    = local.cromwell_vm.config_path
+    config_content = local.cromwell_vm.config_content
+  })
 }

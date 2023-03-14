@@ -23,6 +23,7 @@ variable "deployment_project_name" {
 variable "deployment_project_folder_id" {
   type     = string
   nullable = true
+  default = null
 
   description = "The ID of a GCP project folder, in which to create a generated GCP project."
 }
