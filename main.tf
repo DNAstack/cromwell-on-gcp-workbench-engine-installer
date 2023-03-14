@@ -8,7 +8,7 @@ terraform {
 }
 
 provider "google" {
-  credentials = file("/home/mbarkley/.config/gcloud/application_default_credentials.json")
+  credentials = file(var.gcp_credential_file)
 
   region = var.region
   zone   = var.zone

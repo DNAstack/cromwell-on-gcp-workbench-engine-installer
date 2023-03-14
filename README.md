@@ -103,7 +103,7 @@ always generated as part of applying the configuraiton.
    in those projects. Run:
 
     ```bash
-    terraform destroy -var-file=cromwell.tfvars -var=allow_deletion
+    terraform destroy -var-file=cromwell.tfvars -var=allow_deletion=true
     ```
 
 ## Using the Cromwell Installation

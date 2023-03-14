@@ -1,3 +1,11 @@
+variable "gcp_credential_file" {
+  type     = string
+  nullable = false
+  default  = "~/.config/gcloud/application_default_credentials.json"
+
+  description = "The location on the local filesystem of a GCP JSON file key."
+}
+
 variable "deployment_project_id" {
   type     = string
   nullable = false
