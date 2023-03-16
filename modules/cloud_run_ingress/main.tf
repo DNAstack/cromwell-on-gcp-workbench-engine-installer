@@ -145,18 +145,11 @@ resource "google_cloud_run_service" "default" {
   depends_on = [google_project_service.cloud_run, google_secret_manager_secret_version.nginx_conf_version]
 }
 
-resource "google_service_account" "generated_service_account" {
-  account_id   = "generated-service-account"
-  display_name = "Generated Service Account"
-  description  = "An generated identity for accessing the Cloud Run service in this project"
-  project      = var.project_id
-}
-
 data "google_iam_policy" "allow_generated_service_account" {
   binding {
     role    = "roles/run.invoker"
     members = [
-      "serviceAccount:${google_service_account.generated_service_account.email}"
+      "serviceAccount:${var.generated_service_account_email}"
     ]
   }
 }

@@ -6,7 +6,3 @@ output "service" {
     project  = google_cloud_run_service.default.project
   }
 }
-
-output "generated_service_account_email" {
-  value = google_service_account.generated_service_account.email
-}

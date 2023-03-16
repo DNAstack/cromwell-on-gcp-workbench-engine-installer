@@ -186,10 +186,12 @@ data "google_iam_policy" "cromwell_output" {
     role    = "roles/storage.objectAdmin"
     members = [
       "serviceAccount:${google_service_account.cromwell.email}",
-      "serviceAccount:${google_service_account.pipeline_compute.email}"
+      "serviceAccount:${google_service_account.pipeline_compute.email}",
+      "serviceAccount:${var.generated_service_account_email}"
     ]
   }
 }
+
 
 resource "google_storage_bucket_iam_policy" "cromwell_output" {
   bucket      = google_storage_bucket.cromwell_output.name
@@ -241,6 +243,8 @@ resource "google_project_iam_member" "deployment_account_billing_roles" {
   role    = "roles/serviceusage.serviceUsageConsumer"
 }
 
+
+
 resource "google_service_account_iam_member" "deployment_account_act_as_compute_account" {
   member             = "serviceAccount:${google_service_account.cromwell.email}"
   role               = "roles/iam.serviceAccountUser"
@@ -257,6 +261,12 @@ resource "google_project_iam_member" "compute_account_deployment_roles" {
   project = var.deployment_project_id
   member  = "serviceAccount:${google_service_account.pipeline_compute.email}"
   role    = each.key
+}
+
+resource "google_project_iam_member" "generated_account_billing_roles" {
+  member  = "serviceAccount:${var.generated_service_account_email}"
+  project = var.billing_project_id
+  role    = "roles/serviceusage.serviceUsageConsumer"
 }
 
 module "cromwell_container" {

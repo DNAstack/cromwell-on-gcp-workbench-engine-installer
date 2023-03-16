@@ -37,3 +37,8 @@ variable "allow_deletion" {
   type    = bool
   default = false
 }
+
+variable "generated_service_account_email" {
+  type     = string
+  nullable = false
+}

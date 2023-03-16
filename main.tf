@@ -26,18 +26,25 @@ resource "google_project" "project" {
   skip_delete = !var.allow_deletion
 }
 
+resource "google_service_account" "generated_service_account" {
+  account_id   = "generated-service-account"
+  display_name = "Generated Service Account"
+  description  = "An generated identity for accessing the Cloud Run service in this project"
+  project      = google_project.project.project_id
+}
+
 module "cromwell" {
   source = "./modules/cromwell"
 
-  credential_version    = var.credential_version
-  db_tier               = var.db_tier
-  deployment_project_id = google_project.project.project_id
-  compute_project_id    = var.compute_project_id != null ? var.compute_project_id : var.deployment_project_id
-  billing_project_id    = var.billing_project_id != null ? var.billing_project_id : var.deployment_project_id
-  region                = var.region
-  zone                  = var.zone
-
-  allow_deletion = var.allow_deletion
+  credential_version              = var.credential_version
+  db_tier                         = var.db_tier
+  deployment_project_id           = google_project.project.project_id
+  compute_project_id              = var.compute_project_id != null ? var.compute_project_id : var.deployment_project_id
+  billing_project_id              = var.billing_project_id != null ? var.billing_project_id : var.deployment_project_id
+  region                          = var.region
+  zone                            = var.zone
+  generated_service_account_email = google_service_account.generated_service_account.email
+  allow_deletion                  = var.allow_deletion
 
   depends_on = [google_project.project]
 }
@@ -45,10 +52,11 @@ module "cromwell" {
 module "cloud_run_ingress" {
   source = "./modules/cloud_run_ingress"
 
-  project_id                 = google_project.project.project_id
-  region                     = var.region
-  cromwell_ip                = module.cromwell.network_ip
-  cromwell_network_self_link = module.cromwell.network_self_link
+  project_id                      = google_project.project.project_id
+  region                          = var.region
+  cromwell_ip                     = module.cromwell.network_ip
+  cromwell_network_self_link      = module.cromwell.network_self_link
+  generated_service_account_email = google_service_account.generated_service_account.email
 
   depends_on = [google_project.project]
 }
