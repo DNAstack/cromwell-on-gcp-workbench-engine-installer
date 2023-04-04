@@ -39,6 +39,14 @@ resource "google_service_account" "generated_service_account" {
   project      = google_project.project.project_id
 }
 
+resource "google_service_account_key" "generated_service_account_key" {
+  service_account_id = google_service_account.generated_service_account.email
+  keepers = {
+    project: var.compute_project_id
+    version: var.credential_version
+  }
+}
+
 module "cromwell" {
   source = "./modules/cromwell"
 
