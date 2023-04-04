@@ -1,0 +1,7 @@
+.idea/
+workbench-wes-installer.iml
+**.tfstate
+**.tfstate.backup
+.terraform/
+**.tfvars
+*.iml

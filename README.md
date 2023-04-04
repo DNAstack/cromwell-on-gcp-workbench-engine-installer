@@ -1,7 +1,7 @@
 # Cromwell on GCP
 
 ## Overview
-The Cromwell-on-GCP installer uses Terraform to create an installation of Cromwell using Google Compute Engine,
+The Cromwell-on-GCP installer uses [Terraform](TERRAFORM.md) to create an installation of Cromwell using Google Compute Engine,
 Google Cloud Run, Google Cloud SQL, and the Google Pipelines API, in either a
 [single project](https://docs.google.com/drawings/d/1tQjsM_d-yATFdmUlJ4X0Vk2xj9l9j95Kc6yO4T37vMo/edit) or
 [multi-project](https://docs.google.com/drawings/d/1c2O3LqCgWtZWzsnpP8UOJGI7WFLN9YYd6WJWVNpf6tk/edit) architecture.
