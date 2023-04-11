@@ -44,6 +44,6 @@ variable "generated_service_account_email" {
 }
 
 variable "cromwell_version" {
-  type     = number
+  type     = string
   nullable = false
 }
