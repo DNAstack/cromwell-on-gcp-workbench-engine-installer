@@ -59,6 +59,7 @@ module "cromwell" {
   zone                            = var.zone
   generated_service_account_email = google_service_account.generated_service_account.email
   allow_deletion                  = var.allow_deletion
+  cromwell_version                = var.cromwell_version
 
   depends_on = [google_project.project]
 }

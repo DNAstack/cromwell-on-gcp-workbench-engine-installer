@@ -92,6 +92,12 @@ billing_project_id = "$BILLING_PROJECT_ID"
 When either of these variables are unassigned, they default to using the `deployment_project_id` project that is
 always generated as part of applying the configuraiton.
 
+## Apply Cromwell Configurations
+Add the following variables to your `cromwell.tfvars` file, replacing `$CROMWELL_VERSION` with literal values:
+```terraform
+cromwell_version = "$CROMWELL_VERSION" // defaults to 85
+```
+
 ## Destroying Configuration
 1. Before you can destroy resources, you must update stateful resources so that they can be destroyed:
 
