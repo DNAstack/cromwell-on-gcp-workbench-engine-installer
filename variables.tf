@@ -87,9 +87,9 @@ variable "allow_deletion" {
 }
 
 variable "cromwell_version" {
-  type     = number
+  type     = string
   nullable = false
-  default = 85
+  default  = 85
 
   description = "Set the version of Cromwell to install"
 }
