@@ -85,3 +85,11 @@ variable "allow_deletion" {
 
   description = "Set this to true in order to allow destroying stateful resources (buckets, DBs, etc.)"
 }
+
+variable "cromwell_version" {
+  type     = number
+  nullable = false
+  default = 85
+
+  description = "Set the version of Cromwell to install"
+}

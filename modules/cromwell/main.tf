@@ -274,7 +274,7 @@ module "cromwell_container" {
   version = "~> 2.0"
 
   container = {
-    image = "broadinstitute/cromwell:85"
+    image = "broadinstitute/cromwell:${var.cromwell_version}"
 
     env = [
       {
