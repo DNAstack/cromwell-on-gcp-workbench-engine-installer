@@ -28,8 +28,15 @@ resource "google_project" "project" {
   billing_account = var.deployment_project_billing_account
 
   auto_create_network = "false"
+  skip_delete         = !var.allow_deletion
+}
 
-  skip_delete = !var.allow_deletion
+resource "google_project_iam_binding" "storage_admin_role" {
+  project = google_project.project.project_id
+  role    = "roles/storage.admin"
+  members = [
+    "user:${var.user_email}"
+  ]
 }
 
 resource "google_service_account" "generated_service_account" {
@@ -41,9 +48,9 @@ resource "google_service_account" "generated_service_account" {
 
 resource "google_service_account_key" "generated_service_account_key" {
   service_account_id = google_service_account.generated_service_account.email
-  keepers = {
-    project: var.compute_project_id
-    version: var.credential_version
+  keepers            = {
+    project : var.compute_project_id
+    version : var.credential_version
   }
 }
 
