@@ -93,9 +93,3 @@ variable "cromwell_version" {
 
   description = "Set the version of Cromwell to install"
 }
-
-variable "user_email" {
-  type = string
-  nullable = false
-  description = "Set your email to add to the project IAM policy for accessing specific resources not granted under Project Owner"
-}

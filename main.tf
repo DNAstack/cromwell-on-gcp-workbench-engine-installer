@@ -31,11 +31,16 @@ resource "google_project" "project" {
   skip_delete         = !var.allow_deletion
 }
 
+data "google_client_openid_userinfo" "provider_credentials" {
+
+}
+
+
 resource "google_project_iam_binding" "storage_admin_role" {
   project = google_project.project.project_id
   role    = "roles/storage.admin"
   members = [
-    "user:${var.user_email}"
+  "${can(regex(".+\\.iam\\.gserviceaccount\\.com", )) ? "serviceAccount" : "user" }:${data.google_client_openid_userinfo.provider_credentials.email}"
   ]
 }
 
