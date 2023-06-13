@@ -15,7 +15,8 @@ variable "deployment_project_id" {
 
 variable "deployment_project_name" {
   type     = string
-  nullable = false
+  nullable = true
+  default = null
 
   description = "The name of a GCP project that will be generated."
 }
@@ -30,7 +31,8 @@ variable "deployment_project_folder_id" {
 
 variable "deployment_project_billing_account" {
   type     = string
-  nullable = false
+  nullable = true
+  default = null
 
   description = "The GCP billing account to use for the generated project."
 }
