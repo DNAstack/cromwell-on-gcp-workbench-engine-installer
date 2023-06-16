@@ -16,7 +16,7 @@ variable "deployment_project_id" {
 variable "deployment_project_name" {
   type     = string
   nullable = true
-  default = null
+  default  = null
 
   description = "The name of a GCP project that will be generated."
 }
@@ -24,7 +24,7 @@ variable "deployment_project_name" {
 variable "deployment_project_folder_id" {
   type     = string
   nullable = true
-  default = null
+  default  = null
 
   description = "The ID of a GCP project folder, in which to create a generated GCP project."
 }
@@ -32,7 +32,7 @@ variable "deployment_project_folder_id" {
 variable "deployment_project_billing_account" {
   type     = string
   nullable = true
-  default = null
+  default  = null
 
   description = "The GCP billing account to use for the generated project."
 }
@@ -56,6 +56,13 @@ variable "billing_project_id" {
 variable "region" {
   type    = string
   default = "us-central1"
+  validation {
+    condition = contains([
+      "us-central1", "us-west2", "northamerica-northeast1", "europe-west2", "europe-west4", "asia-southeast1",
+      "asia-southeast2"
+    ], var.region)
+    error_message = "Region must be one of: us-central1, us-west2, northamerica-northeast1, europe-west2, europe-west4, asia-southeast1, asia-southeast2"
+  }
 
   description = "The GCP region in which to deploy Cromwell and where pipeline jobs are executed."
 }
