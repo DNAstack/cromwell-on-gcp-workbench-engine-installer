@@ -124,6 +124,32 @@ cromwell_version = "$CROMWELL_VERSION" // defaults to 85
     terraform destroy -var-file=cromwell.tfvars -var=allow_deletion=true
     ```
 
+## Deploying To a different location
+
+The Cloud Life Sciences API supports a number of
+different [locations](https://cloud.google.com/life-sciences/docs/concepts/locations)
+for submitting and jobs to. The location does not correspond to the actual zone used for executing a task
+(that can be controlled via the `zone` attribute in the WDL runtime, or setting the `zone` variable in your `cromwell.tfvars`),
+instead it is where the job metadata is located.
+
+The deployment location is controlled via the `region` variable (default value of `us-central1`). If you would like to
+use one of the alternative regions supported by the Cloud Life Sciences API, simply set the region in your
+`cromwell.tfvars` file to a supported value.
+
+Currently supported values are:
+ - us-central1
+ - us-west2
+ - northamerica-northeast1
+ - europe-west2
+ - europe-west4
+ - asia-southeast1
+ - asia-southeast2
+
+```terraform
+region = northamerica-northeast1
+```
+
+
 ## Importing an existing Project
 
 Applying the default configuration of the engine installer will create a new project to deploy the resources too. This
@@ -141,14 +167,14 @@ this, you can import an existing project and deploy the resources to that.
     terraform import -var-file=cromwell.tfvars google_project.project $PROJECT_ID
     ```
 3. Extract the required variables from the `terraform.tfstate`
-   - `deployment_project_name`
-     1. In the `terraform.tfstate` file, find the resource with: `"type": "google_project"
-     2. In the `instance[0].attributes` find the `name` attribute and copy the value
-     3. Set you `deployment_project_name` to the extracted value in your `cromwell.tfvars`
-   - `deployment_project_billing_account`
-     1. In the `terraform.tfstate` file, find the resource with: `"type": "google_project"
-     2. In the `instance[0].attributes` find the `billing_account` attribute and copy the value
-     3. Set you `deployment_project_billing_account` to the extracted value in your `cromwell.tfvars`
+    - `deployment_project_name`
+        1. In the `terraform.tfstate` file, find the resource with: `"type": "google_project"
+        2. In the `instance[0].attributes` find the `name` attribute and copy the value
+        3. Set you `deployment_project_name` to the extracted value in your `cromwell.tfvars`
+    - `deployment_project_billing_account`
+        1. In the `terraform.tfstate` file, find the resource with: `"type": "google_project"
+        2. In the `instance[0].attributes` find the `billing_account` attribute and copy the value
+        3. Set you `deployment_project_billing_account` to the extracted value in your `cromwell.tfvars`
 4. Once you have updated your `cromwell.tfvars` apply the configuration
    ```bash
     terraform apply -var-file=cromwell.tfvars
