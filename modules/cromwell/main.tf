@@ -219,6 +219,7 @@ resource "google_project_iam_member" "deployment_account_deployment_roles" {
   for_each = toset([
     "roles/serviceusage.serviceUsageConsumer",
     "roles/compute.networkUser",
+    "roles/logging.logWriter"
   ])
 
   project = var.deployment_project_id
@@ -242,7 +243,6 @@ resource "google_project_iam_member" "deployment_account_billing_roles" {
   member  = "serviceAccount:${google_service_account.cromwell.email}"
   role    = "roles/serviceusage.serviceUsageConsumer"
 }
-
 
 
 resource "google_service_account_iam_member" "deployment_account_act_as_compute_account" {
@@ -318,8 +318,11 @@ resource "google_compute_instance" "cromwell_vm" {
 
   tags = ["cromwell-server"]
 
+
   metadata = {
-    gce-container-declaration = module.cromwell_container.metadata_value
+    google-logging-enabled       = true
+    google-logging-use-fluentbit = true
+    gce-container-declaration    = module.cromwell_container.metadata_value
   }
 
   labels = {
