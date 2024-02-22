@@ -124,19 +124,13 @@ cromwell_version = "$CROMWELL_VERSION" // defaults to 85
     terraform destroy -var-file=cromwell.tfvars -var=allow_deletion=true
     ```
 
-## Deploying To a different location
+## Deploying to a different location
 
-The Cloud Life Sciences API supports a number of
-different [locations](https://cloud.google.com/life-sciences/docs/concepts/locations)
-for submitting and jobs to. The location does not correspond to the actual zone used for executing a task
-(that can be controlled via the `zone` attribute in the WDL runtime, or setting the `zone` variable in your `cromwell.tfvars`),
-instead it is where the job metadata is located.
+The Cloud Life Sciences API supports a number of different [locations](https://cloud.google.com/life-sciences/docs/concepts/locations) for submitting and jobs to. The location does not correspond to the actual zone used for executing a task (that can be controlled via the `zone` attribute in the WDL runtime, or setting the `zone` variable in your `cromwell.tfvars`), instead it is where the job metadata is located.
 
-The deployment location is controlled via the `region` variable (default value of `us-central1`). If you would like to
-use one of the alternative regions supported by the Cloud Life Sciences API, simply set the region in your
-`cromwell.tfvars` file to a supported value.
+The deployment location is controlled via the `region` variable (default value of `us-central1`). If you would like to use one of the alternative regions supported by the Cloud Life Sciences API, simply set the region and zone variables in your `cromwell.tfvars` file to a supported value.
 
-Currently supported values are:
+Currently supported values for `region` are:
  - us-central1
  - us-west2
  - northamerica-northeast1
@@ -145,8 +139,15 @@ Currently supported values are:
  - asia-southeast1
  - asia-southeast2
 
+To find the available zones for a given region, run:
+
+```bash
+gcloud compute zones list | grep <region>
+```
+
 ```terraform
 region = northamerica-northeast1
+zone = northamerica-northeast1-c
 ```
 
 
