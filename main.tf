@@ -29,6 +29,8 @@ resource "google_project" "project" {
 
   auto_create_network = "false"
   skip_delete         = !var.allow_deletion
+
+  labels = var.deployment_project_labels
 }
 
 data "google_client_openid_userinfo" "provider_credentials" {
