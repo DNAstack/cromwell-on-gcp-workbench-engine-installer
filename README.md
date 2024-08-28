@@ -171,11 +171,19 @@ this, you can import an existing project and deploy the resources to that.
     - `deployment_project_name`
         1. In the `terraform.tfstate` file, find the resource with: `"type": "google_project"
         2. In the `instance[0].attributes` find the `name` attribute and copy the value
-        3. Set you `deployment_project_name` to the extracted value in your `cromwell.tfvars`
+        3. Set your `deployment_project_name` to the extracted value in your `cromwell.tfvars`
     - `deployment_project_billing_account`
         1. In the `terraform.tfstate` file, find the resource with: `"type": "google_project"
         2. In the `instance[0].attributes` find the `billing_account` attribute and copy the value
-        3. Set you `deployment_project_billing_account` to the extracted value in your `cromwell.tfvars`
+        3. Set your `deployment_project_billing_account` to the extracted value in your `cromwell.tfvars`
+    - `deployment_project_folder_id`
+        1. In the `terraform.tfstate` file, find the resource with: `"type": "google_project"
+        2. In the `instance[0].attributes` find the `folder_id` attribute and copy the value
+        3. Set your `deployment_project_folder_id` to the extracted value in your `cromwell.tfvars`
+    - `deployment_project_labels`
+        1. In the `terraform.tfstate` file, find the resource with: `"type": "google_project"
+        2. In the `instance[0].attributes` find the `labels` attribute and copy the value
+        3. Set your `deployment_project_labels` to the extracted value in your `cromwell.tfvars`
 4. Once you have updated your `cromwell.tfvars` apply the configuration
    ```bash
     terraform apply -var-file=cromwell.tfvars

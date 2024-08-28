@@ -29,6 +29,14 @@ variable "deployment_project_folder_id" {
   description = "The ID of a GCP project folder, in which to create a generated GCP project."
 }
 
+variable "deployment_project_labels" {
+  type     = map(string)
+  nullable = false
+  default  = {}
+
+  description = "Optional labels to apply to the GCP project"
+}
+
 variable "deployment_project_billing_account" {
   type     = string
   nullable = true
