@@ -28,8 +28,6 @@ resource "google_project" "project" {
   billing_account = var.deployment_project_billing_account
 
   auto_create_network = "false"
-  skip_delete         = !var.allow_deletion
-
   labels = var.deployment_project_labels
 }
 
