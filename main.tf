@@ -14,8 +14,6 @@ terraform {
 }
 
 provider "google" {
-  credentials = file(var.gcp_credential_file)
-
   region = var.region
   zone   = var.zone
 }
@@ -31,17 +29,12 @@ resource "google_project" "project" {
   labels = var.deployment_project_labels
 }
 
-data "google_client_openid_userinfo" "provider_credentials" {
+data "google_client_openid_userinfo" "provider_credentials" {}
 
-}
-
-
-resource "google_project_iam_binding" "storage_admin_role" {
+resource "google_project_iam_member" "storage_admin_role" {
   project = google_project.project.project_id
   role    = "roles/storage.admin"
-  members = [
-  "${can(regex(".+\\.iam\\.gserviceaccount\\.com", )) ? "serviceAccount" : "user" }:${data.google_client_openid_userinfo.provider_credentials.email}"
-  ]
+  member  = "${can(regex(".+\\.iam\\.gserviceaccount\\.com", data.google_client_openid_userinfo.provider_credentials.email)) ? "serviceAccount" : "user" }:${data.google_client_openid_userinfo.provider_credentials.email}"
 }
 
 resource "google_service_account" "generated_service_account" {

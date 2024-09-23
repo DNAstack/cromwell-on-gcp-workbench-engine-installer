@@ -1,31 +1,15 @@
-variable "gcp_credential_file" {
-  type     = string
-  nullable = false
-  default  = "~/.config/gcloud/application_default_credentials.json"
-
-  description = "The location on the local filesystem of a GCP JSON file key."
-}
-
 variable "deployment_project_id" {
   type     = string
-  nullable = false
-
   description = "The ID of a GCP project that will be generated."
 }
 
 variable "deployment_project_name" {
   type     = string
-  nullable = true
-  default  = null
-
   description = "The name of a GCP project that will be generated."
 }
 
 variable "deployment_project_folder_id" {
   type     = string
-  nullable = true
-  default  = null
-
   description = "The ID of a GCP project folder, in which to create a generated GCP project."
 }
 
