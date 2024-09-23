@@ -12,6 +12,7 @@ resource "google_project_service" "deployment_project_compute" {
   service = "compute.googleapis.com"
 
   disable_on_destroy = false
+  disable_dependent_services = true
 }
 
 resource "google_project_service" "compute_project_compute" {
@@ -19,8 +20,9 @@ resource "google_project_service" "compute_project_compute" {
   service = "compute.googleapis.com"
 
   disable_on_destroy = false
+  disable_dependent_services = true
 
-  # This might be the same project, so wait for the first to succeed before enabling this
+# This might be the same project, so wait for the first to succeed before enabling this
   depends_on = [google_project_service.deployment_project_compute]
 }
 
@@ -29,6 +31,7 @@ resource "google_project_service" "networking" {
   service = "servicenetworking.googleapis.com"
 
   disable_on_destroy = false
+  disable_dependent_services = true
 }
 
 resource "google_project_service" "cloud_resource_manager" {
@@ -36,6 +39,7 @@ resource "google_project_service" "cloud_resource_manager" {
   service = "cloudresourcemanager.googleapis.com"
 
   disable_on_destroy = false
+  disable_dependent_services = true
 }
 
 module "deployment_network" {
@@ -213,6 +217,7 @@ resource "google_project_service" "pipelines" {
   service = "lifesciences.googleapis.com"
 
   disable_on_destroy = false
+  disable_dependent_services = true
 }
 
 resource "google_project_iam_member" "deployment_account_deployment_roles" {
