@@ -78,6 +78,8 @@ resource "google_vpc_access_connector" "cloud_run_vpc_connector" {
   name          = "cloud-run-vpc-connector"
   network       = var.cromwell_network_self_link
   ip_cidr_range = "10.3.0.0/28"
+  min_instances = 2
+  max_instances = 3
 
   depends_on = [google_project_service.vpc_access]
 }
