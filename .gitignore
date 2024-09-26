@@ -5,3 +5,5 @@ workbench-wes-installer.iml
 .terraform/
 **.tfvars
 *.iml
+terraform.tf
+.terraform.lock.hcl
