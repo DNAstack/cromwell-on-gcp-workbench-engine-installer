@@ -21,6 +21,12 @@ variable "deployment_project_labels" {
   description = "Optional labels to apply to the GCP project"
 }
 
+variable "create_projects" {
+  type    = bool
+  default = true
+  description = "Whether to create the projects in this module or not"
+}
+
 variable "deployment_project_billing_account" {
   type     = string
   nullable = true
