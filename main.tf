@@ -13,7 +13,7 @@ resource "google_project" "project" {
 data "google_project" "project" {
   project_id = var.deployment_project_id
 
-  depends_on = [google_project.project]
+  depends_on = [google_project.project[0]]
 }
 
 data "google_client_openid_userinfo" "provider_credentials" {}
