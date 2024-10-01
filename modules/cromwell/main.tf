@@ -186,7 +186,7 @@ resource "google_service_account" "pipeline_compute" {
 resource "google_project_iam_member" "pipeline_storage_object_admin" {
   project = var.deployment_project_id
   role    = "roles/storage.objectAdmin"
-  member  = "serivceAccount:${google_service_account.pipeline_compute.email}"
+  member  = "serviceAccount:${google_service_account.pipeline_compute.email}"
 }
 
 resource "google_project_iam_member" "pipeline_artifact_registry_reader" {
