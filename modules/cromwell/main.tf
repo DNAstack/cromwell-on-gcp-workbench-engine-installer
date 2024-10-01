@@ -171,10 +171,28 @@ resource "google_service_account" "cromwell" {
   display_name = "Cromwell Service Account"
 }
 
+resource "google_project_iam_member" "cromwell_storage_object_storage_viewer" {
+  project = var.deployment_project_id
+  role    = "roles/storage.objectViewer"
+  member  = "serviceAccount:${google_service_account.cromwell.email}"
+}
+
 resource "google_service_account" "pipeline_compute" {
   project      = var.compute_project_id
   account_id   = "pipeline-sa"
   display_name = "Pipeline Compute Service Account"
+}
+
+resource "google_project_iam_member" "pipeline_storage_object_admin" {
+  project = var.deployment_project_id
+  role    = "roles/storage.objectAdmin"
+  member  = "serivceAccount:${google_service_account.pipeline_compute.email}"
+}
+
+resource "google_project_iam_member" "pipeline_artifact_registry_reader" {
+  project = var.deployment_project_id
+  role    = "roles/artifactregistry.reader"
+  member  = "serviceAccount:${google_service_account.pipeline_compute.email}"
 }
 
 resource "google_storage_bucket" "cromwell_output" {
