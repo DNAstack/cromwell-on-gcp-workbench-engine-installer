@@ -161,15 +161,17 @@ Applying the default configuration of the engine installer will create a new pro
 may not always be desirable especially where billing user and project creation permissions are an issue. To circumvent
 this, you can import an existing project and deploy the resources to that.
 
-1. Add the project id that you want to import to the `cromwell.tfvars` file
+1. Add the project id, project name, and project folder that you want to import to the `cromwell.tfvars` file
     ```terraform
     deployment_project_id = "$PROJECT_ID"
-    # This should be the only value in your tfvars
+    deployment_project_name = "$PROJECT_NAME"
+    # Can be null
+    deployment_project_folder_id = "$FOLDER_ID"
     ```
 2. Run the terraform command to import the GCP project and start managing it with terraform. This will sync the remote
    project to your local terraform state and allow you to reference the values defined in it.
     ```shell
-    terraform import -var-file=cromwell.tfvars google_project.project $PROJECT_ID
+    terraform import -var-file=cromwell.tfvars google_project.project[0] $PROJECT_ID
     ```
 3. Extract the required variables from the `terraform.tfstate`
     - `deployment_project_name`
