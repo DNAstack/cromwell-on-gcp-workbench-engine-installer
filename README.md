@@ -79,12 +79,12 @@ To run this script, you must have the following prepared:
     ```
 4. Clone the terraform.tf.template file to terraform.tfvars:
     ```bash
-    cp terraform.tf.template terraform.tfvars
+    cp terraform.tf.template terraform.tf
     ```
 5. Apply the configuration with your variable assignments:
 
     ```bash
-    terraform apply -var-file=cromwell.tf
+    terraform apply -var-file=cromwell.tfvars
     ```
 
    Terraform will print out a plan and ask you to type `yes` before starting. If you are running this for the first
