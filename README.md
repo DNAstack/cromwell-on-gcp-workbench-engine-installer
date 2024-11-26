@@ -84,7 +84,7 @@ To run this script, you must have the following prepared:
 5. Apply the configuration with your variable assignments:
 
     ```bash
-    terraform apply -var-file=cromwell.tfvars
+    terraform apply -var-file=cromwell.tf
     ```
 
    Terraform will print out a plan and ask you to type `yes` before starting. If you are running this for the first
