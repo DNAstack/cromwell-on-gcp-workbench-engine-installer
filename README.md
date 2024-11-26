@@ -77,7 +77,7 @@ To run this script, you must have the following prepared:
     # Delete the line below to create a project without a project folder
     deployment_project_folder_id       = "$FOLDER_ID"
     ```
-4. Clone the terraform.tf.template file to terraform.tfvars:
+4. Clone the terraform.tf.template file to terraform.tf:
     ```bash
     cp terraform.tf.template terraform.tf
     ```
