@@ -47,3 +47,12 @@ variable "cromwell_version" {
   type     = string
   nullable = false
 }
+
+variable "additional_buckets" {
+  description = "Additional buckets to add to the policy"
+  type = list(object({
+    name    = string
+    project = string
+  }))
+  default = []
+}

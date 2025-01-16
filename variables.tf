@@ -100,3 +100,13 @@ variable "cromwell_version" {
 
   description = "Set the version of Cromwell to install"
 }
+
+variable "additional_buckets" {
+  description = "Additional buckets to add to the policy"
+  type = list(object({
+    name    = string
+    project = string
+  }))
+  default = []
+  nullable = true
+}

@@ -52,6 +52,7 @@ module "cromwell" {
   generated_service_account_email = google_service_account.generated_service_account.email
   allow_deletion                  = var.allow_deletion
   cromwell_version                = var.cromwell_version
+  additional_buckets              = var.additional_buckets
 
   depends_on = [data.google_project.project]
 }
@@ -66,4 +67,15 @@ module "cloud_run_ingress" {
   generated_service_account_email = google_service_account.generated_service_account.email
 
   depends_on = [data.google_project.project]
+}
+
+# Check if additional_buckets is not empty and assign roles
+resource "google_project_iam_member" "additional_buckets_roles" {
+  for_each = { for bucket in var.additional_buckets : bucket.name => bucket }
+
+  project = each.value.project
+  role    = "roles/storage.objectViewer"
+  member  = "serviceAccount:${google_service_account.generated_service_account.email}"
+
+  depends_on = [google_project.project]
 }
