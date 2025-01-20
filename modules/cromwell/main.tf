@@ -177,6 +177,14 @@ resource "google_project_iam_member" "cromwell_storage_object_storage_viewer" {
   member  = "serviceAccount:${google_service_account.cromwell.email}"
 }
 
+resource "google_project_iam_member" "cromwell_additional_buckets_roles" {
+  for_each = { for bucket in var.additional_buckets : bucket.name => bucket }
+
+  project = each.value.project
+  role    = "roles/storage.objectViewer"
+  member  = "serviceAccount:${google_service_account.cromwell.email}"
+}
+
 resource "google_service_account" "pipeline_compute" {
   project      = var.compute_project_id
   account_id   = "pipeline-sa"
