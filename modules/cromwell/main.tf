@@ -203,6 +203,12 @@ resource "google_project_iam_member" "pipeline_artifact_registry_reader" {
   member  = "serviceAccount:${google_service_account.pipeline_compute.email}"
 }
 
+resource "google_project_iam_member" "pipeline_service_usage_consumer" {
+  project = var.deployment_project_id
+  role    = "roles/serviceusage.serviceUsageConsumer"
+  member  = "serviceAccount:${google_service_account.pipeline_compute.email}"
+}
+
 resource "google_storage_bucket" "cromwell_output" {
   project  = var.deployment_project_id
   location = var.region
