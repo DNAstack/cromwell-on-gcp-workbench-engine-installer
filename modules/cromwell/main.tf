@@ -306,6 +306,16 @@ resource "google_project_iam_member" "generated_account_billing_roles" {
   role    = "roles/serviceusage.serviceUsageConsumer"
 }
 
+data "google_organization" "org" {
+  domain = var.google_organization
+}
+
+resource "google_project_iam_member" "generated_account_bucket_lister_role" {
+  project = var.deployment_project_id
+  role   = "organizations/${data.google_organization.org.org_id}/roles/${var.bucket_lister_role_name}"
+  member = "serviceAccount:${var.generated_service_account_email}"
+}
+
 module "cromwell_container" {
   source  = "terraform-google-modules/container-vm/google"
   version = "~> 2.0"
