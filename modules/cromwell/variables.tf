@@ -56,3 +56,15 @@ variable "additional_buckets" {
   }))
   default = []
 }
+
+variable "google_organization" {
+  description = "The name of the organization in the resource hierarchy that the project belongs to"
+  type        = string
+  default     = "dnastack.com"
+}
+
+variable "bucket_lister_role_name" {
+  description = "The name of the custom role that contains the storage.buckets.get permission"
+  type        = string
+  default     = "BucketLister"
+}
