@@ -343,6 +343,9 @@ module "cromwell_container" {
     ]
   }
 
+  cos_image_family = var.cos_image_family
+  cos_image_name = var.cos_image_name
+
   volumes = [
     {
       name     = "config"

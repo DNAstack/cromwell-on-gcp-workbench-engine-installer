@@ -68,3 +68,15 @@ variable "bucket_lister_role_name" {
   type        = string
   default     = "BucketLister"
 }
+
+variable "cos_image_name" {
+  description = "Name of a specific COS image to use instead of the latest cos family image"
+  type        = string
+  default     = "cos-stable-117-18613-164-68"
+}
+
+variable "cos_image_family" {
+    description = "The COS image family to use (eg: stable, beta, or dev)"
+    type        = string
+    default     = "cos-stable"
+}
