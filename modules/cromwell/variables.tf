@@ -90,5 +90,4 @@ variable "sql_maintenance_window_day" {
 variable "sql_maintenance_window_hour" {
   description = "The hour of day (0-23), ignored if day not set for the maintenance window (UTC)"
   type        = number
-  default     = 6
 }
