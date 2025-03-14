@@ -110,3 +110,14 @@ variable "additional_buckets" {
   default = []
   nullable = true
 }
+
+variable "cromwell_sql_maintenance_window_day" {
+  description = "The day of week (1-7), starting on Monday for the maintenance window"
+  type        = number
+  default     = 1
+}
+
+variable "cromwell_sql_maintenance_window_hour" {
+  description = "The hour of day (0-23), ignored if day not set for the maintenance window (UTC)"
+  type        = number
+}

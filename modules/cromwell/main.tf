@@ -115,6 +115,11 @@ resource "google_sql_database_instance" "cromwell_mysql" {
         retained_backups = 1
       }
     }
+    maintenance_window {
+      day = var.sql_maintenance_window_day
+      hour = var.sql_maintenance_window_hour
+      update_track = "stable"
+    }
   }
 }
 
