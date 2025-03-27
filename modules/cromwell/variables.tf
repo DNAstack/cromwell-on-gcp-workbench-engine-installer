@@ -91,3 +91,15 @@ variable "sql_maintenance_window_hour" {
   description = "The hour of day (0-23), ignored if day not set for the maintenance window (UTC)"
   type        = number
 }
+
+variable "sql_profile" {
+  description = "Database profile to use for the Cromwell SQL database"
+  type        = string
+  default     = "slick.jdbc.MySQLProfile$"
+}
+
+variable "sql_driver" {
+  description = "Database driver to use for the Cromwell SQL database"
+  type        = string
+  default     = "com.mysql.cj.jdbc.Driver"
+}
