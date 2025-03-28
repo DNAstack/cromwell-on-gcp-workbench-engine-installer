@@ -192,6 +192,12 @@ resource "google_project_iam_member" "cromwell_additional_buckets_roles" {
   member  = "serviceAccount:${google_service_account.cromwell.email}"
 }
 
+resource "google_project_iam_member" "cromwell_batch_admin" {
+  project = var.deployment_project_id
+  role    = "roles/batch.admin"
+  member  = "serviceAccount:${google_service_account.cromwell.email}"
+}
+
 resource "google_service_account" "pipeline_compute" {
   project      = var.compute_project_id
   account_id   = "pipeline-sa"
@@ -213,12 +219,6 @@ resource "google_project_iam_member" "pipeline_artifact_registry_reader" {
 resource "google_project_iam_member" "pipeline_service_usage_consumer" {
   project = var.deployment_project_id
   role    = "roles/serviceusage.serviceUsageConsumer"
-  member  = "serviceAccount:${google_service_account.pipeline_compute.email}"
-}
-
-resource "google_project_iam_member" "pipeline_batch_admin" {
-  project = var.deployment_project_id
-  role    = "roles/batch.admin"
   member  = "serviceAccount:${google_service_account.pipeline_compute.email}"
 }
 
