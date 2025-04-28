@@ -88,7 +88,7 @@ variable "allow_deletion" {
 variable "cromwell_version" {
   type     = string
   nullable = false
-  default  = 85
+  default  = 88
 
   description = "Set the version of Cromwell to install"
 }
@@ -112,4 +112,5 @@ variable "cromwell_sql_maintenance_window_day" {
 variable "cromwell_sql_maintenance_window_hour" {
   description = "The hour of day (0-23), ignored if day not set for the maintenance window (UTC)"
   type        = number
+  default     = 2
 }
