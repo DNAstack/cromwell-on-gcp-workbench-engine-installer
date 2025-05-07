@@ -54,14 +54,6 @@ variable "billing_project_id" {
 variable "region" {
   type    = string
   default = "us-central1"
-  validation {
-    condition = contains([
-      "us-central1", "us-west2", "northamerica-northeast1", "europe-west2", "europe-west4", "asia-southeast1",
-      "asia-southeast2"
-    ], var.region)
-    error_message = "Region must be one of: us-central1, us-west2, northamerica-northeast1, europe-west2, europe-west4, asia-southeast1, asia-southeast2"
-  }
-
   description = "The GCP region in which to deploy Cromwell and where pipeline jobs are executed."
 }
 
@@ -96,7 +88,7 @@ variable "allow_deletion" {
 variable "cromwell_version" {
   type     = string
   nullable = false
-  default  = 85
+  default  = 88
 
   description = "Set the version of Cromwell to install"
 }
@@ -120,4 +112,5 @@ variable "cromwell_sql_maintenance_window_day" {
 variable "cromwell_sql_maintenance_window_hour" {
   description = "The hour of day (0-23), ignored if day not set for the maintenance window (UTC)"
   type        = number
+  default     = 2
 }

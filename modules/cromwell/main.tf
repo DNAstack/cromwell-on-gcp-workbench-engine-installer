@@ -153,6 +153,8 @@ locals {
       jdbc_url : "jdbc:mysql://${google_sql_database_instance.cromwell_mysql.private_ip_address}:3306/${local.cromwell_db.db_name}?rewriteBatchedStatements=true&useSSL=false"
       db_user : local.cromwell_db.user
       db_password : local.cromwell_db.password
+      db_driver : var.sql_driver
+      db_profile : var.sql_profile
     })
   }
 }
@@ -190,6 +192,12 @@ resource "google_project_iam_member" "cromwell_additional_buckets_roles" {
   member  = "serviceAccount:${google_service_account.cromwell.email}"
 }
 
+resource "google_project_iam_member" "cromwell_batch_admin" {
+  project = var.deployment_project_id
+  role    = "roles/batch.admin"
+  member  = "serviceAccount:${google_service_account.cromwell.email}"
+}
+
 resource "google_service_account" "pipeline_compute" {
   project      = var.compute_project_id
   account_id   = "pipeline-sa"
@@ -211,6 +219,12 @@ resource "google_project_iam_member" "pipeline_artifact_registry_reader" {
 resource "google_project_iam_member" "pipeline_service_usage_consumer" {
   project = var.deployment_project_id
   role    = "roles/serviceusage.serviceUsageConsumer"
+  member  = "serviceAccount:${google_service_account.pipeline_compute.email}"
+}
+
+resource "google_project_iam_member" "pipeline_batch_reporter" {
+  project = var.deployment_project_id
+  role    = "roles/batch.agentReporter"
   member  = "serviceAccount:${google_service_account.pipeline_compute.email}"
 }
 
@@ -249,9 +263,9 @@ resource "random_id" "unique_suffix" {
   byte_length = 8
 }
 
-resource "google_project_service" "pipelines" {
+resource "google_project_service" "batch" {
   project = var.compute_project_id
-  service = "lifesciences.googleapis.com"
+  service = "batch.googleapis.com"
 
   disable_on_destroy = false
   disable_dependent_services = true
@@ -265,17 +279,6 @@ resource "google_project_iam_member" "deployment_account_deployment_roles" {
   ])
 
   project = var.deployment_project_id
-  member  = "serviceAccount:${google_service_account.cromwell.email}"
-  role    = each.key
-}
-
-resource "google_project_iam_member" "deployment_account_compute_roles" {
-  for_each = toset([
-    "roles/lifesciences.admin",
-    "roles/genomics.admin",
-  ])
-
-  project = var.compute_project_id
   member  = "serviceAccount:${google_service_account.cromwell.email}"
   role    = each.key
 }
