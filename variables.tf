@@ -114,3 +114,9 @@ variable "cromwell_sql_maintenance_window_hour" {
   type        = number
   default     = 2
 }
+
+variable "sql_database_version" {
+  description = "Database version to use for the Cromwell SQL database"
+  type     = string
+  default     = "MYSQL_8_4"
+}
