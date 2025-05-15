@@ -92,7 +92,7 @@ resource "random_password" "root_db_password" {
 resource "google_sql_database_instance" "cromwell_mysql" {
   project          = var.deployment_project_id
   name             = "cromwell-mysql-${random_id.unique_suffix.hex}"
-  database_version = "MYSQL_5_7"
+  database_version = var.sql_database_version
   region           = var.region
 
   depends_on = [google_service_networking_connection.private_vpc_connection]

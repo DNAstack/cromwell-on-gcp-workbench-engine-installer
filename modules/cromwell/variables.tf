@@ -103,3 +103,8 @@ variable "sql_driver" {
   type        = string
   default     = "com.mysql.cj.jdbc.Driver"
 }
+
+variable "sql_database_version" {
+  description = "Database version to use for the Cromwell SQL database"
+  type     = string
+}
