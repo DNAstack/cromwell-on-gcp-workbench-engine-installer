@@ -170,6 +170,7 @@ resource "google_sql_user" "cromwell" {
   instance = google_sql_database_instance.cromwell_mysql.name
   name     = local.cromwell_db.user
   password = local.cromwell_db.password
+  host     = "%"
 }
 
 resource "google_service_account" "cromwell" {
