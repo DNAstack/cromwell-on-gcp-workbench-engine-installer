@@ -91,3 +91,8 @@ variable "sql_maintenance_window_hour" {
   description = "The hour of day (0-23), ignored if day not set for the maintenance window (UTC)"
   type        = number
 }
+
+variable "sql_database_version" {
+  description = "Database version to use for the Cromwell SQL database"
+  type     = string
+}
