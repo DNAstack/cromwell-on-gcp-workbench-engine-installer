@@ -150,7 +150,7 @@ locals {
       bucket : local.cromwell_bucket_name
       private_network : module.pipeline_network.network.self_link
       private_subnet : module.pipeline_network.subnet.self_link
-      jdbc_url : "jdbc:mysql://${google_sql_database_instance.cromwell_mysql.private_ip_address}:3306/${local.cromwell_db.db_name}?rewriteBatchedStatements=true&useSSL=false"
+      jdbc_url : "jdbc:mysql://${google_sql_database_instance.cromwell_mysql.private_ip_address}:3306/${local.cromwell_db.db_name}?rewriteBatchedStatements=true&useSSL=false&allowPublicKeyRetrieval=true"
       db_user : local.cromwell_db.user
       db_password : local.cromwell_db.password
       db_driver : var.sql_driver
