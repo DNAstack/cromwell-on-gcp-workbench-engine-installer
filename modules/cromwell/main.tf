@@ -234,6 +234,16 @@ resource "google_storage_bucket" "cromwell_output" {
   location = var.region
   name     = local.cromwell_bucket_name
 
+  lifecycle_rule {
+    condition {
+      age = var.file_age_days
+      matches_suffix = var.file_suffixes_to_delete
+    }
+    action {
+      type = "Delete"
+    }
+  }
+
   force_destroy = var.allow_deletion
 }
 
