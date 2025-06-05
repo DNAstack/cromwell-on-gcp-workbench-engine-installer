@@ -108,3 +108,15 @@ variable "sql_database_version" {
   description = "Database version to use for the Cromwell SQL database"
   type     = string
 }
+
+variable "file_suffixes_to_delete" {
+  description = "List of file suffixes used in the deletion lifecycle policy"
+  type        = list(string)
+  default     = [".gz", ".bam", ".bed", ".bw", ".out", ".tsv", ".bai", ".log"]
+}
+
+variable "file_age_days" {
+  description = "Number of days after which files with the specified suffixes will be deleted"
+  type        = number
+  default     = 14
+}
