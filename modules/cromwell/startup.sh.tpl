@@ -24,8 +24,8 @@ set -o errexit -o nounset -o pipefail -o posix
 
 boot_timestamp="$(date --iso-8601=ns)"
 
-mkdir -p "$(dirname "${config_path}")"
+mkdir -p "${config_path}"
 
-cat > "${config_path}" << "EOF"
+cat > "${config_path}/cromwell.conf" << "EOF"
 ${config_content}
 EOF

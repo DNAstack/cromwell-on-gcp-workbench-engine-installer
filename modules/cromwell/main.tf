@@ -140,7 +140,7 @@ locals {
   cromwell_bucket_name = "cromwell-output-${random_id.unique_suffix.hex}"
   cromwell_vm          = {
     name           = "cromwell-vm"
-    config_path    = "/etc/cromwell/cromwell.conf"
+    config_path    = "/etc/cromwell"
     config_content = templatefile("${path.module}/cromwell.conf", {
       compute_project : var.compute_project_id
       billing_project : var.billing_project_id
@@ -355,7 +355,7 @@ module "cromwell_container" {
 
     volumeMounts = [
       {
-        mountPath = "/configuration/cromwell.conf"
+        mountPath = "/configuration"
         name      = "config"
         readOnly  = true
       }
