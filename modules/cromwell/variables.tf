@@ -63,8 +63,14 @@ variable "google_organization" {
   default     = "dnastack.com"
 }
 
+variable "apply_bucket_lister_role" {
+  description = "Whether to apply the custom bucket lister role, true by default"
+  type        = string
+  default     = true
+}
+
 variable "bucket_lister_role_name" {
-  description = "The name of the custom role that contains the storage.buckets.get permission"
+  description = "The name of the custom role that contains the storage.buckets.get and storage.buckets.list permission"
   type        = string
   default     = "BucketLister"
 }
