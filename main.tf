@@ -50,6 +50,7 @@ module "cromwell" {
   region                          = var.region
   zone                            = var.zone
   generated_service_account_email = google_service_account.generated_service_account.email
+  apply_bucket_lister_role        = var.apply_bucket_lister_role
   allow_deletion                  = var.allow_deletion
   cromwell_version                = var.cromwell_version
   additional_buckets              = var.additional_buckets

@@ -120,3 +120,9 @@ variable "cromwell_sql_database_version" {
   type     = string
   default     = "MYSQL_8_0"
 }
+
+variable "apply_bucket_lister_role" {
+  description = "Whether to apply the existing custom bucket lister role, true by default"
+  type        = string
+  default     = true
+}

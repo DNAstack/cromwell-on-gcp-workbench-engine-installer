@@ -64,13 +64,13 @@ variable "google_organization" {
 }
 
 variable "apply_bucket_lister_role" {
-  description = "Whether to apply the custom bucket lister role, true by default"
+  description = "Whether to apply the existing custom bucket lister role to the generated SA, true by default"
   type        = string
   default     = true
 }
 
 variable "bucket_lister_role_name" {
-  description = "The name of the custom role that contains the storage.buckets.get and storage.buckets.list permission"
+  description = "The name of the existing custom DNAstack role that contains the storage.buckets.get and storage.buckets.list permission"
   type        = string
   default     = "BucketLister"
 }
