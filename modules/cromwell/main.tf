@@ -326,13 +326,14 @@ resource "google_project_iam_member" "generated_account_billing_roles" {
 }
 
 data "google_organization" "org" {
+  count  = var.apply_bucket_lister_role ? 1 : 0
   domain = var.google_organization
 }
 
 resource "google_project_iam_member" "generated_account_bucket_lister_role" {
   count = var.apply_bucket_lister_role ? 1 : 0
   project = var.deployment_project_id
-  role   = "organizations/${data.google_organization.org.org_id}/roles/${var.bucket_lister_role_name}"
+  role   = "organizations/${data.google_organization.org[0].org_id}/roles/${var.bucket_lister_role_name}"
   member = "serviceAccount:${var.generated_service_account_email}"
 }
 
