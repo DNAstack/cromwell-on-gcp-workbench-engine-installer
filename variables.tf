@@ -71,6 +71,13 @@ variable "db_tier" {
   description = "The tier of database instance to use for Cromwell's MySQL database."
 }
 
+variable "db_edition" {
+  type    = string
+  default = "ENTERPRISE"
+
+  description = "The edition of database instance to use for Cromwell's MySQL database."
+}
+
 variable "credential_version" {
   type    = number
   default = 1

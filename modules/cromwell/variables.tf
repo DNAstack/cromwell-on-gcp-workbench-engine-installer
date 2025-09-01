@@ -28,6 +28,11 @@ variable "credential_version" {
   nullable = false
 }
 
+variable "db_edition" {
+  type     = string
+  nullable = false
+}
+
 variable "db_tier" {
   type     = string
   nullable = false

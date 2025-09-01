@@ -44,6 +44,7 @@ module "cromwell" {
 
   credential_version              = var.credential_version
   db_tier                         = var.db_tier
+  db_edition                      = var.db_edition
   deployment_project_id           = data.google_project.project.project_id
   compute_project_id              = var.compute_project_id != null ? var.compute_project_id : var.deployment_project_id
   billing_project_id              = var.billing_project_id != null ? var.billing_project_id : var.deployment_project_id

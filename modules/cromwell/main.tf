@@ -102,6 +102,7 @@ resource "google_sql_database_instance" "cromwell_mysql" {
   deletion_protection = var.allow_deletion ? false : true
 
   settings {
+    edition = var.db_edition
     tier = var.db_tier
     ip_configuration {
       ipv4_enabled                                  = false
