@@ -131,3 +131,9 @@ variable "file_age_days" {
   type        = number
   default     = 14
 }
+
+variable "datadog_exclude_label" {
+  description = "Setting this label to true will exclude resource from being tracked as a datadog host. Exclusion rule must also be set in datadog in order for this to work."
+  type        = bool
+  default     = true
+}

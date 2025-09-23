@@ -58,6 +58,7 @@ module "cromwell" {
   sql_maintenance_window_day      = var.cromwell_sql_maintenance_window_day
   sql_maintenance_window_hour     = var.cromwell_sql_maintenance_window_hour
   sql_database_version            = var.cromwell_sql_database_version
+  datadog_exclude_label             = var.datadog_exclude_label
 
   depends_on = [data.google_project.project]
 }

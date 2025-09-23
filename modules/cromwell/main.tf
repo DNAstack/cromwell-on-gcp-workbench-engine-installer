@@ -399,6 +399,7 @@ resource "google_compute_instance" "cromwell_vm" {
 
   labels = {
     container-vm = module.cromwell_container.vm_container_label
+    datadog_exclude = var.datadog_exclude_label
   }
 
   boot_disk {
