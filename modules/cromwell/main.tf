@@ -87,6 +87,10 @@ resource "random_password" "root_db_password" {
   }
 
   length = 32
+
+  lifecycle {
+    ignore_changes = [keepers]
+  }
 }
 
 resource "google_sql_database_instance" "cromwell_mysql" {
@@ -130,6 +134,10 @@ resource "random_password" "cromwell_db_password" {
   }
 
   length = 32
+
+  lifecycle {
+    ignore_changes = [keepers]
+  }
 }
 
 locals {
@@ -273,6 +281,10 @@ resource "random_id" "unique_suffix" {
   }
 
   byte_length = 8
+
+  lifecycle {
+    ignore_changes = [keepers]
+  }
 }
 
 resource "google_project_service" "batch" {
