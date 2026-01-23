@@ -214,6 +214,13 @@ resource "google_service_account" "pipeline_compute" {
   display_name = "Pipeline Compute Service Account"
 }
 
+# To write batch logs
+resource "google_project_iam_member" "pipeline_logs_writer" {
+  project = var.deployment_project_id
+  role    = "roles/logging.logWriter"
+  member  = "serviceAccount:${google_service_account.pipeline_compute.email}"
+}
+
 resource "google_project_iam_member" "pipeline_storage_object_admin" {
   project = var.deployment_project_id
   role    = "roles/storage.objectAdmin"
