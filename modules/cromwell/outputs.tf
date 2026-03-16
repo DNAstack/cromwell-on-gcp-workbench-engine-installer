@@ -5,3 +5,7 @@ output "network_ip" {
 output "network_self_link" {
   value = module.deployment_network.network.self_link
 }
+
+output "cromwell_output_bucket_name" {
+  value = google_storage_bucket.cromwell_output.name
+}
