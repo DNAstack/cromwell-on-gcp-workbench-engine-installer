@@ -62,6 +62,11 @@ variable "additional_buckets" {
   default = []
 }
 
+variable "workflow_outputs_bucket" {
+  description = "Name of the bucket Cromwell writes finalized workflow file outputs to. Granted object read+write to pipeline-sa."
+  type        = string
+}
+
 variable "google_organization" {
   description = "The name of the organization in the resource hierarchy that the project belongs to"
   type        = string

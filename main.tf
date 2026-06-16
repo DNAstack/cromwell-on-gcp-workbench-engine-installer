@@ -55,6 +55,7 @@ module "cromwell" {
   allow_deletion                  = var.allow_deletion
   cromwell_version                = var.cromwell_version
   additional_buckets              = var.additional_buckets
+  workflow_outputs_bucket         = var.workflow_outputs_bucket
   sql_maintenance_window_day      = var.cromwell_sql_maintenance_window_day
   sql_maintenance_window_hour     = var.cromwell_sql_maintenance_window_hour
   sql_database_version            = var.cromwell_sql_database_version
