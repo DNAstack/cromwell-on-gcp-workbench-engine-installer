@@ -4,6 +4,10 @@ terraform {
       source  = "hashicorp/google"
       version = ">= 6.2.0"
     }
+    time = {
+      source  = "hashicorp/time"
+      version = ">= 0.9"
+    }
   }
 }
 
@@ -81,6 +85,14 @@ resource "google_service_networking_connection" "private_vpc_connection" {
   depends_on = [google_project_service.networking]
 }
 
+# Cloud SQL releases its private services access peering asynchronously after the instance is
+# deleted. Delay destroying the connection so its deletion does not race that release, which
+# otherwise fails with "producer services are still using this connection".
+resource "time_sleep" "wait_for_sql_peering_release" {
+  depends_on       = [google_service_networking_connection.private_vpc_connection]
+  destroy_duration = "300s"
+}
+
 resource "random_password" "root_db_password" {
   keepers = {
     version : var.credential_version
@@ -99,7 +111,7 @@ resource "google_sql_database_instance" "cromwell_mysql" {
   database_version = var.sql_database_version
   region           = var.region
 
-  depends_on = [google_service_networking_connection.private_vpc_connection]
+  depends_on = [time_sleep.wait_for_sql_peering_release]
 
   root_password = random_password.root_db_password.result
 
