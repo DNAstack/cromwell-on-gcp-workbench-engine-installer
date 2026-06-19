@@ -16,14 +16,6 @@ data "google_project" "project" {
   depends_on = [google_project.project[0]]
 }
 
-data "google_client_openid_userinfo" "provider_credentials" {}
-
-resource "google_project_iam_member" "storage_admin_role" {
-  project = data.google_project.project.project_id
-  role    = "roles/storage.admin"
-  member  = "${can(regex(".+\\.iam\\.gserviceaccount\\.com", data.google_client_openid_userinfo.provider_credentials.email)) ? "serviceAccount" : "user" }:${data.google_client_openid_userinfo.provider_credentials.email}"
-}
-
 resource "google_service_account" "generated_service_account" {
   account_id   = "generated-service-account"
   display_name = "Generated Service Account"
@@ -55,6 +47,7 @@ module "cromwell" {
   allow_deletion                  = var.allow_deletion
   cromwell_version                = var.cromwell_version
   additional_buckets              = var.additional_buckets
+  workflow_outputs_bucket         = var.workflow_outputs_bucket
   sql_maintenance_window_day      = var.cromwell_sql_maintenance_window_day
   sql_maintenance_window_hour     = var.cromwell_sql_maintenance_window_hour
   sql_database_version            = var.cromwell_sql_database_version

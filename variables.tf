@@ -110,6 +110,11 @@ variable "additional_buckets" {
   nullable = true
 }
 
+variable "workflow_outputs_bucket" {
+  description = "Name of the bucket Cromwell writes finalized workflow file outputs to. Granted object read+write to pipeline-sa."
+  type        = string
+}
+
 variable "cromwell_sql_maintenance_window_day" {
   description = "The day of week (1-7), starting on Monday for the maintenance window"
   type        = number

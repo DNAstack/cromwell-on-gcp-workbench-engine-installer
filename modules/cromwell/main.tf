@@ -204,7 +204,7 @@ resource "google_project_iam_member" "cromwell_additional_buckets_roles" {
 
 resource "google_project_iam_member" "cromwell_batch_admin" {
   project = var.deployment_project_id
-  role    = "roles/batch.admin"
+  role    = "roles/batch.jobsEditor"
   member  = "serviceAccount:${google_service_account.cromwell.email}"
 }
 
@@ -221,10 +221,20 @@ resource "google_project_iam_member" "pipeline_logs_writer" {
   member  = "serviceAccount:${google_service_account.pipeline_compute.email}"
 }
 
-resource "google_project_iam_member" "pipeline_storage_object_admin" {
-  project = var.deployment_project_id
-  role    = "roles/storage.objectAdmin"
-  member  = "serviceAccount:${google_service_account.pipeline_compute.email}"
+# pipeline-sa reads workflow inputs from each additional bucket.
+resource "google_storage_bucket_iam_member" "pipeline_additional_buckets_read" {
+  for_each = { for bucket in var.additional_buckets : bucket.name => bucket }
+
+  bucket = each.value.name
+  role   = "roles/storage.objectViewer"
+  member = "serviceAccount:${google_service_account.pipeline_compute.email}"
+}
+
+# pipeline-sa writes finalized workflow outputs to the outputs bucket.
+resource "google_storage_bucket_iam_member" "pipeline_workflow_outputs_writer" {
+  bucket = var.workflow_outputs_bucket
+  role   = "roles/storage.objectUser"
+  member = "serviceAccount:${google_service_account.pipeline_compute.email}"
 }
 
 resource "google_project_iam_member" "pipeline_artifact_registry_reader" {
