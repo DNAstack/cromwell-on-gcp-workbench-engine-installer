@@ -10,3 +10,7 @@ output "generated_service_account_private_key" {
   value     = google_service_account_key.generated_service_account_key.private_key
   sensitive = true
 }
+
+output "deployment_network_name" {
+  value = module.cromwell.deployment_network_name
+}

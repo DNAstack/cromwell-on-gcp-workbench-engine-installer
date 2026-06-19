@@ -78,6 +78,12 @@ resource "google_service_networking_connection" "private_vpc_connection" {
   service                 = "servicenetworking.googleapis.com"
   reserved_peering_ranges = [google_compute_global_address.cromwell_mysql_ip.name]
 
+  # Cloud SQL does not release this private-services-access connection on a bounded timescale
+  # after the instance is deleted, so terraform's own delete races the producer-side release
+  # and fails with "producer services are still using this connection". Abandon it on destroy;
+  # the consumer-side VPC peering is removed out of band so the network can still be torn down.
+  deletion_policy = "ABANDON"
+
   depends_on = [google_project_service.networking]
 }
 

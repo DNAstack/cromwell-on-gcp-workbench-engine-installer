@@ -5,3 +5,7 @@ output "network_ip" {
 output "network_self_link" {
   value = module.deployment_network.network.self_link
 }
+
+output "deployment_network_name" {
+  value = module.deployment_network.network.name
+}
