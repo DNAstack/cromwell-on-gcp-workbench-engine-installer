@@ -14,3 +14,7 @@ output "generated_service_account_private_key" {
 output "cromwell_output_bucket_name" {
   value = module.cromwell.cromwell_output_bucket_name
 }
+
+output "deployment_network_name" {
+  value = module.cromwell.deployment_network_name
+}
