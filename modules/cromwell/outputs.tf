@@ -13,3 +13,7 @@ output "deployment_network_name" {
 output "cromwell_output_bucket_name" {
   value = google_storage_bucket.cromwell_output.name
 }
+
+output "pipeline_sa_email" {
+  value = google_service_account.pipeline_compute.email
+}
