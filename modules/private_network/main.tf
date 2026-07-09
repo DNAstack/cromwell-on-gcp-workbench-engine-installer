@@ -52,6 +52,7 @@ resource "google_compute_router_nat" "internet_nat" {
   nat_ip_allocate_option             = "AUTO_ONLY"
   source_subnetwork_ip_ranges_to_nat = "ALL_SUBNETWORKS_ALL_IP_RANGES"
   router                             = google_compute_router.internet_router.name
+  tcp_time_wait_timeout_sec          = var.tcp_time_wait_timeout_sec
 
   log_config {
     enable = true
