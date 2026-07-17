@@ -243,6 +243,16 @@ resource "google_storage_bucket_iam_member" "pipeline_workflow_outputs_writer" {
   member = "serviceAccount:${google_service_account.pipeline_compute.email}"
 }
 
+# generated-service-account (the engine's own identity, used by ewes-service's /blob API to
+# stream file bytes back to Workbench for Monitor Inputs/Outputs previews and IGV BAM/BAI
+# tracks) needs read access to the same outputs bucket pipeline-sa writes to. Nothing else
+# grants this, so on a fresh engine every /blob read against this bucket fails.
+resource "google_storage_bucket_iam_member" "generated_account_workflow_outputs_reader" {
+  bucket = var.workflow_outputs_bucket
+  role   = "roles/storage.objectViewer"
+  member = "serviceAccount:${var.generated_service_account_email}"
+}
+
 resource "google_project_iam_member" "pipeline_artifact_registry_reader" {
   project = var.deployment_project_id
   role    = "roles/artifactregistry.reader"
