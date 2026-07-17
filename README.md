@@ -1,3 +1,7 @@
+# DEPRECATED
+
+All environments (including dev) are now reading this module from https://github.com/DNAstack/dnastack-deployment-templates/tree/main/terraform/gcloud/hifisolves/hifisolves-resources/modules/cromwell
+
 # Cromwell on GCP
 
 ## Overview
